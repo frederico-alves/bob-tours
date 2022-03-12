@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BobToursService } from 'src/app/services/bob-tours.service';
 
 @Component({
   selector: 'app-regions',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegionsPage implements OnInit {
 
-  constructor() { }
+  regions: any;
+
+  constructor(private btService:BobToursService) { }
 
   ngOnInit() {
+    this.regions = this.btService.regions;
   }
 
 }
