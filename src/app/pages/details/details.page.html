@@ -11,7 +11,25 @@
   <ion-content class="ion-padding">
     <ion-button routerLink="/request"
                 routerDirection="forward">
-      Request a Tour
+                Request a Tour
     </ion-button>
   </ion-content>
 </ion-content>
+
+<!-- In a footer component we have two buttons, whose visibility is now controlled by the isFavorite flag -->
+<ion-footer class="ion-padding">
+  <!-- The click event of the “Add to Favorites” button triggers the add method of the FavoritesService. It also sets isFavorite to true to control the visibility logic of the buttons. -->
+  <ion-button (click)="favService.add(tour);
+                        isFavorite = true"
+                        *ngIf="!isFavorite"
+                        expand="block">
+                        Add to Favorites
+  </ion-button>
+  <!-- The click event of the “Remove from Favorites” button triggers theremove method of the FavoritesService. It also sets isFavorite to false to control the vis- ibility logic of the buttons, too. -->
+  <ion-button (click)="favService.remove(tour);
+                       isFavorite = false"
+                        *ngIf="!isFavorite"
+                        expand="block">
+                        Remove from Favorites
+  </ion-button>
+</ion-footer>

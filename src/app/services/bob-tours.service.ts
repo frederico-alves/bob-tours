@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FavoritesService } from './favorites.service';
 import _ from 'lodash';
 
 @Injectable({
@@ -14,7 +15,8 @@ export class BobToursService {
   // MY FIREBASE URL DATABASE
   baseUrl = 'https://bob-tours-app-14ed5-default-rtdb.europe-west1.firebasedatabase.app/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              public favService: FavoritesService) { }
 
   initialize() {
     this.getRegions()
@@ -22,8 +24,10 @@ export class BobToursService {
     this.getTourtypes()
     .then(data => this.tourtypes = _.sortBy(data, 'Name'));
     // .then(data => this.tourtypes = data);
-    this.getTours()
-    .then(data => this.tours = _.sortBy(data, 'Title'));
+    this.getTours().then(data => {
+      this.tours = _.sortBy(data, 'Title')
+      this.favService.initialize(this.tours)
+    });
   }
 
   getRegions() {
